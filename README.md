@@ -9,6 +9,24 @@ This project is a part of my curriculum in Big Data as MP2L student, the goal is
 - [Sentiment140 dataset with 1.6 million tweets](https://www.kaggle.com/datasets/kazanova/sentiment140) (Or the archive zip in the data folder)
 - [TextBlob](https://textblob.readthedocs.io/en/dev/)
 - [NLTK](https://www.nltk.org/)
+- [spacy](https://spacy.io/)
+
+## The dataset content
+
+It contains the following 6 fields:
+
+- target: the polarity of the tweet (0 = negative, 2 = neutral, 4 = positive)
+
+- ids: The id of the tweet ( 2087)
+
+- date: the date of the tweet (Sat May 16 23:58:44 UTC 2009)
+
+- flag: The query (lyx). If there is no query, then this value is NO_QUERY.
+
+- user: the user that tweeted (robotickilldozr)
+
+- text: the text of the tweet (Lyx is cool)
+
 
 ## Steps to follow for the project
 

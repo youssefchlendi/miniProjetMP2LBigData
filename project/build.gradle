@@ -1,0 +1,42 @@
+plugins {
+    id 'java'
+}
+
+ext {
+    scalaVersion = "2.12"
+    sparkVersion = "3.1.1"
+}
+
+
+group 'com.example'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'scala'
+
+repositories {
+    jcenter()
+    mavenLocal()
+    mavenCentral()
+    maven {
+        url "https://oss.sonatype.org/content/repositories/snapshots"
+    }
+}
+
+dependencies {
+    implementation "org.scala-lang:scala-library:${project.ext.scalaVersion}.10"
+    implementation "org.scala-lang:scala-reflect:${project.ext.scalaVersion}.10"
+    implementation "org.scala-lang:scala-compiler:${project.ext.scalaVersion}.10"
+
+    implementation "org.apache.spark:spark-mllib_${project.ext.scalaVersion}:${project.ext.sparkVersion}"
+    implementation "org.apache.spark:spark-sql_${project.ext.scalaVersion}:${project.ext.sparkVersion}"
+    implementation "org.apache.spark:spark-graphx_${project.ext.scalaVersion}:${project.ext.sparkVersion}"
+    implementation "org.apache.spark:spark-launcher_${project.ext.scalaVersion}:${project.ext.sparkVersion}"
+    implementation "org.apache.spark:spark-catalyst_${project.ext.scalaVersion}:${project.ext.sparkVersion}"
+    implementation "org.apache.spark:spark-streaming_${project.ext.scalaVersion}:${project.ext.sparkVersion}"
+    implementation "org.apache.spark:spark-core_${project.ext.scalaVersion}:${project.ext.sparkVersion}"
+
+    implementation group: 'com.johnsnowlabs.nlp', name: 'spark-nlp_2.12', version: '3.0.1'
+
+    implementation group: 'commons-io', name: 'commons-io', version: '2.5'
+}
