@@ -1,5 +1,4 @@
 import org.apache.spark.sql.SparkSession
-import org.apache.spark.sql.functions.explode
 import com.johnsnowlabs.nlp.base.{DocumentAssembler, Finisher}
 import com.johnsnowlabs.nlp.annotator.{LemmatizerModel, SentenceDetector, SentimentDetector, Tokenizer}
 import org.apache.spark.ml.Pipeline
@@ -32,7 +31,7 @@ object SparkNLPSentimentAnalysis {
       .setOutputCol("token")
 
     // Load Lemmatization Dictionary
-    val lemmaFile = "C:\\Users\\pc\\miniProjetMP2LBigData\\lemmatization-en.txt"
+    val lemmaFile = "C:\\Git\\miniProjetMP2LBigData\\lemmatization-en.txt"
     val fileSource = Source.fromFile(lemmaFile)
     val lemmaMap = fileSource.getLines().map(line => {
       val Array(word, lemma) = line.split("\t")
@@ -50,7 +49,7 @@ object SparkNLPSentimentAnalysis {
     val sentimentDetector = new SentimentDetector()
       .setInputCols(Array("lemma", "sentence"))
       .setOutputCol("sentiment_score")
-      .setDictionary("C:\\Users\\pc\\miniProjetMP2LBigData\\transformed_dict.txt", readAs = "TEXT", delimiter = ",")
+      .setDictionary("C:\\Git\\miniProjetMP2LBigData\\transformed_dict.txt", readAs = "TEXT", delimiter = ",")
     // Initialize Finisher
     val finisher = new Finisher()
       .setInputCols(Array("sentiment_score"))
@@ -67,8 +66,7 @@ object SparkNLPSentimentAnalysis {
         finisher
       ))
 
-    val testDataset = spark.read.option("header", true).csv("C:\\Users\\pc\\miniProjetMP2LBigData\\aclimdb_test.csv")
-    testDataset.show(100)
+    val testDataset = spark.read.option("header", true).csv("C:\\Git\\miniProjetMP2LBigData\\aclimdb_test.csv")
 
     //spark.createDataFrame([['']]).toDF("text") // empty dataframe
     val empty_df = Seq(("")).toDF("text")
