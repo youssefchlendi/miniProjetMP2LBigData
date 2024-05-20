@@ -4,15 +4,15 @@ import com.johnsnowlabs.nlp.annotator.{LemmatizerModel, SentenceDetector, Sentim
 import org.apache.spark.ml.Pipeline
 import scala.io.Source
 
-object SparkNLPSentimentAnalysis {
+object SentimentDetectorMp2l {
 
   def main(args: Array[String]): Unit = {
+    val startTime = System.nanoTime()
+
     val spark = SparkSession.builder()
       .appName("Spark NLP Sentiment Analysis Scala Application")
       .master("local[*]")
       .getOrCreate()
-
-    import spark.implicits._
 
     // Initialize Document Assembler
     val documentAssembler = new DocumentAssembler()
@@ -68,16 +68,9 @@ object SparkNLPSentimentAnalysis {
 
     val testDataset = spark.read.option("header", true).csv("C:\\Git\\miniProjetMP2LBigData\\aclimdb_test.csv")
 
-    //spark.createDataFrame([['']]).toDF("text") // empty dataframe
-    val empty_df = Seq(("")).toDF("text")
-    // %%time equivalent in Scala
-    val pipelineModel = pipeline.fit(empty_df)
-
-
-    val startTime = System.nanoTime()
     val result = pipeline.fit(testDataset).transform(testDataset)
     val endTime = System.nanoTime()
-    println("Time taken to train the pipeline: " + (endTime - startTime) / 1000000000 + " seconds")
+    println("Time taken to prepare the pipeline: " + (endTime - startTime) / 1000000000 + " seconds")
 
     // Show the result after Sentiment Detection
     result.show()
